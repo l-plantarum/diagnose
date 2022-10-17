@@ -1,0 +1,57 @@
+<dl>
+  <dt>総合評価</dt>
+  <dd>{{ message }}{{ common }}</dd>
+  <dt>グラフ</dt>
+  <dd>
+    <img src=./diagnose-chart/{{ uuid }}>
+  </dd>
+  <dt>分野ごとの得点</dt>
+  <dd>
+    <table border=1>
+    <thead>
+    <tr><th>分野</th><th>得点</th><th>平均点</th><th>配点</th><th>偏差値</th></tr>
+    </thead> 
+    <tbody>
+    {% for item, pt in point %}
+      <tr><td>{{ item }}</td><td align=right>{{ pt }}</td><td align=right>{{ attribute(average, item) }}</td><td align=right>{{ attribute(full, item) }}</td><td align=right>{{ attribute(deviation, item) }}</td></tr>
+    {% endfor %}
+    <tr><td>総合</td><td align=right>{{ total }}</td><td align=right>{{ total_average }}</td><td align=right>{{ fullscore }}</td><td align=right>{{ total_deviation }}</td><tr>
+    </tbody>
+    </table>
+  </dd>
+  <dt>あなたの強み</dt>
+  <dd>{{ pros }}</dd>
+  <dt>アドバイス</dt>
+  <dd>
+    <!-- アドバイス -->
+     {{ advice }} 下のAmazonリンクからどうぞ．
+
+  <dt>おすすめ商品</dt>
+    <dd> <!-- amazonリンク --> 
+<a href="https://www.amazon.co.jp/exec/obidos/ASIN/{{ amazon }}/bousai0bc-22">Amazonリンク</a>
+    </dd>
+  <dt>おすすめ動画</dt>
+    <dd>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/{{ movie }}" title="YouTube video player" width="560"></iframe>
+  </dd>
+</dl>
+
+<h2>シェア</h2>
+<dl>
+  <dt>診断結果のシェア</dt>
+  <dd>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="{{ chartmessage }}" data-url="{{ charturl }}" data-via="plantarum" data-hashtags="防災情報博士" data-related="plantarum" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </dd>
+
+  <dt>診断のシェア:</dt>
+<dd>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="{{ diagnosemessage }}" data-url="{{ diagnoseurl}}" data-via="plantarum" data-hashtags="防災情報博士" data-related="plantarum" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</dd>
+
+  <dt>このサイトのシェア</dt>
+<dd>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="{{ mainsite }}" data-url="https://bousai.abayama.com/portal/" data-via="plantarum" data-hashtags="防災情報博士" data-related="plantarum" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</dd>
+</dl>
+
+<a href="{{ diagnoseurl }}">診断ページに戻る</a>

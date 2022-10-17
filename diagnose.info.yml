@@ -1,0 +1,4 @@
+name: diagnose 
+type: module
+description: 'diagnose or test and draw a chart'
+core_version_requirement: ^9

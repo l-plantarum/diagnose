@@ -1,0 +1,26 @@
+diagnose.form:
+  path: '/diagnose/{name}'
+  defaults:
+    _form: '\Drupal\diagnose\Form\DiagnoseForm'
+    _title: '防災意識診断'
+  requirements:
+    _permission: 'access content'
+
+diagnose-result:
+  path: '/diagnose-result'
+  defaults:
+    _controller: '\Drupal\diagnose\Controller\ResultController::show_result'
+    _title: '結果発表'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE
+
+diagnose-chart:
+  path: '/diagnose-chart/{uuid}'
+  defaults:
+    _controller: '\Drupal\diagnose\Controller\ChartController::show_result'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE

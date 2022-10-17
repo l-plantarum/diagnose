@@ -1,0 +1,66 @@
+<?php
+
+
+namespace Drupal\diagnose\Controller;
+
+use Drupal\Core\Controller\ControllerBase;
+
+class ResultController extends ControllerBase {
+    private $total, $message, $sd, $average, $deviation, $point, $classes;
+
+    private function createImageUrl() {
+        $str = "/DrawImage2.php?total=$this->total&sd=$this->sd&average=$this->average&";
+        foreach ($this->point as $key => $value) {
+            $str = $str . urlencode($key) . "=$value&";
+        }
+		$str = $str . "classes=" . urlencode($this->classes) . "&";
+		$str = $str . "message=" . urlencode($this->message);
+        return $str;
+    }
+    protected function getModuleName() {
+        return 'diagnose';
+    }
+
+    public function show_result() {
+        $qp = \Drupal::request()->query->all();
+        if (array_key_exists("query", $qp)) {
+            $uuid = $qp["query"];
+        }
+        else {
+            #TODO: 何も表示されていない
+            $retval["#message"] = "診断プログラムから動かせ";
+            return $retval;
+        }
+        // diagnoseテーブル
+        $database = \Drupal::database();
+        $query = $database->query("select message, average, stdev, total , deviation from {diagnose} where uuid=:uuid", [":uuid" => $uuid]);
+        $pres = $query->fetchAssoc();
+        $this->total = $pres["total"];
+        $this->message = $pres["message"];
+        $this->sd = $pres["stdev"];
+        $this->average = $pres["average"];
+        $this->deviation = $pres["deviation"];
+        $query = $database->query("select item, point, average from {diagnose_item} where uuid=:uuid", [":uuid" => $uuid]);
+        $this->point = array();
+        while ($sres = $query->fetchAssoc()) {
+            $this->point[$sres["item"]] = $sres["point"];
+        }
+        // 文字部分
+        $this->classes = join(",", array_keys($this->point));
+
+
+        $retval = [];
+        $retval["#theme"] = "diagnose_theme_hook";
+        $retval["#message"] = $this->message;
+        $retval["#average"] = $this->average;
+        $retval["#deviation"] = $this->deviation;
+        $retval["#sd"] = $this->sd;
+        $retval["#total"] = $this->total;
+        $retval["#classes"] = $this->classes;
+        $retval["#point"] = $this->point;
+		$retval["#uuid"] = $uuid;
+
+        return $retval;
+    }
+}
+

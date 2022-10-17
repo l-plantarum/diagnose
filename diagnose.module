@@ -1,0 +1,145 @@
+<?php
+
+function diagnose_theme($existing, $type, $theme, $path) {
+	return [
+		'diagnose_theme_hook' => [
+			'render element' => 'children',
+			'template' => 'diagnose-theme-hook',
+			'path' => $path . '/templates',
+			'variables' => [
+				"message" => "m",
+				"average" => "a",
+				"sd"      => "s",
+				"deviation" => "d",
+				"point"     => "p",
+				"total"     => "t",
+				"full"   => "f",
+				"uuid" => "uuid",
+				"chartmessage" => "chartmessage",
+				"charturl" => "charturl",
+				"diagnosemessage" => "diagnosemessage",
+				"diagnoseurl" => "diagnoseurl",
+				"mainsite" => "mainsite",
+				"common" => "common",
+				"pros" => "pros",
+				"cons" => "cons",
+				"advice" => "advice",
+				"amazon" => "amazon",
+				"movie" => "movie",
+				"fullscore" => "f",
+				"deviation" => "d",
+				"total_deviation" => "d",
+				"total_average" => "a",
+			]
+		]
+	];
+}
+
+function diagnose_schema() {
+  $schema['diagnose'] = [
+    'description' => '各人の診断結果',
+    'fields' => [
+       'uuid' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'UUID',
+       ],
+       'file' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '診断ファイル名',
+       ],
+       'message' => [
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '診断メッセージ',
+       ],
+       'average' => [
+        'type' => 'numeric', 'precision' => 5, 'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '平均点',
+       ],
+       'stdev' => [
+        'type' => 'numeric', 'precision' => 5, 'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '標準偏差',
+       ],
+       'full' => [
+        'type' => 'numeric', 
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '標準偏差',
+       ],
+       'total' => [
+        'type' => 'numeric', 'size' => 'normal',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '合計点',
+       ],
+       'deviation' => [
+        'type' => 'numeric', 'precision' => 5, 'scale' => 1,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '偏差値',
+       ],
+     ],
+  ];
+  $schema['diagnose_item'] = [
+    'description' => '項目別診断結果の格納',
+    'fields' => [
+       'uuid' => [
+         'type' => 'varchar',
+         'length' => 255,
+         'not null' => TRUE,
+         'default' => '',
+         'description' => 'UUID',
+       ],
+       'item' => [
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '項目',
+       ],
+       'point' => [
+        'type' => 'numeric', 'precision' => 5,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'あなたの得点',
+       ],
+       'average' => [
+        'type' => 'numeric', 'precision' => 5, 'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '平均点',
+       ],
+       'full' => [
+        'type' => 'numeric', 'precision' => 5,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '配点',
+       ],
+       'stdev' => [
+        'type' => 'numeric', 'precision' => 5, 'scale' => 2,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '標準偏差',
+       ],
+       'deviation' => [
+        'type' => 'numeric', 'precision' => 5, 'scale' => 1,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '項目別偏差値',
+       ],
+     ],
+  ];
+  return $schema;
+}
