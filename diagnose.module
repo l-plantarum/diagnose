@@ -53,6 +53,12 @@ function diagnose_schema() {
         'default' => '',
         'description' => '診断ファイル名',
        ],
+	   'did' => [
+         'type' => 'int',
+         'not null' => TRUE,
+         'default' => 1,
+         'description' => 'diagnose id',
+       ],
        'message' => [
         'type' => 'varchar',
         'length' => 1024,
