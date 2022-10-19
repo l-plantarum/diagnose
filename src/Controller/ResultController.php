@@ -27,7 +27,7 @@ class ResultController extends ControllerBase {
         }
         // diagnoseテーブル
         $database = \Drupal::database();
-        $query = $database->query("select file, message, average, stdev, total , deviation, full from {diagnose} where uuid=:uuid", [":uuid" => $uuid]);
+        $query = $database->query("select file, did, message, average, stdev, total , deviation, full from {diagnose} where uuid=:uuid", [":uuid" => $uuid]);
         $pres = $query->fetchAssoc();
         $this->total = $pres["total"];
         $this->message = $pres["message"];
@@ -36,6 +36,7 @@ class ResultController extends ControllerBase {
         $this->total_deviation = $pres["deviation"];
 	    $this->fullscore = $pres["full"];
 		$file = $pres["file"];
+		$did = $pres["did"];
         $query = $database->query("select item, point, average, full, stdev, deviation from {diagnose_item} where uuid=:uuid", [":uuid" => $uuid]);
         $this->point = array();
 		$this->full = array();
@@ -96,7 +97,7 @@ class ResultController extends ControllerBase {
 		$retval["#charturl"] = \Drupal::request()->server->get('HTTP_REFERER');
 
 		$retval["#diagnosemessage"] = "防災意識診断をやってみました!";
-		$retval["#diagnoseurl"] = \Drupal::request()->server->get('HTTP_REFERER');
+		$retval["#diagnoseurl"] = $req->getBasePath() . "/diagnose/" . $did;
 		$retval["#mainsite"] = "防災情報博士";
 
         return $retval;
