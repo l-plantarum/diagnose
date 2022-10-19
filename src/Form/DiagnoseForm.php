@@ -23,10 +23,15 @@ class DiagnoseForm extends FormBase {
 	public function buildForm(array $form, FormStateInterface $form_state, $name = NULL) {
 	    if ($name == "0") {
 			$name = "diag0.xml";
+			$did = 0;
 		}
 		else if ($name == "1") {
 			$name = "diagnosis1.xml";
+			$did = 1;
 		}
+		else {
+			$did = $name;
+        }
 		$absolute_path = \Drupal::service('file_system')->realpath("public://" . $name);
         $xml = simplexml_load_file($absolute_path);
 		$xmloptions = explode(",", $xml->options);
@@ -75,12 +80,14 @@ class DiagnoseForm extends FormBase {
 		$args = $form_state->getBuildInfo()["args"];
 		if ($args[0] == "0") {
 			$name = "diag0.xml";
+			$did = 0;
 		}
 		else if ($args[0] == "1") {
 			$name = "diagnosis1.xml";
+			$did = 1;
 		}
 		else {
-			$name = $args[0];
+			$did = $name = $args[0];
 		}
 
 		// XMLの取得
@@ -125,6 +132,7 @@ class DiagnoseForm extends FormBase {
 		$uuid = Uuid::uuid1();
 		$data = [
 			"uuid" => $uuid,
+   			"did" => $did,
 			"file" => $name,
 			"message" => $message,
 			"average" => (float)(strval($ave->total)),
