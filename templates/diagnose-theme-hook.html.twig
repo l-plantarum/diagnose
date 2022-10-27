@@ -1,13 +1,23 @@
-<dl>
-  <dt>総合評価</dt>
-  <dd>{{ message }}{{ common }}</dd>
-  <dt>グラフ</dt>
-  <dd>
-    <img src=./diagnose-chart/{{ uuid }}>
-  </dd>
-  <dt>分野ごとの得点</dt>
-  <dd>
-    <table border=1>
+<style>
+h2 { 
+	border-left: 5px solid bisque;
+	padding: 10px;
+	margin-left: 30px;
+	margin-bottom: 10px;
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+p {
+	margin-left: 40px;
+}
+</style>
+<h2>総合評価</h2>
+<p>
+{{ message }}{{ common }}
+</p>
+<img style="margin-left: 40px;" src=./diagnose-chart/{{ uuid }}>
+<h2 >分野ごとの得点</h2>
+    <table border=1 style="margin-left: 40px;">
     <thead>
     <tr><th>分野</th><th>得点</th><th>平均点</th><th>配点</th><th>偏差値</th></tr>
     </thead> 
@@ -18,32 +28,28 @@
     <tr><td>総合</td><td align=right>{{ total }}</td><td align=right>{{ total_average }}</td><td align=right>{{ fullscore }}</td><td align=right>{{ total_deviation }}</td><tr>
     </tbody>
     </table>
-  </dd>
-  <dt>あなたの強み</dt>
-  <dd>{{ pros }}</dd>
-  <dt>アドバイス</dt>
-  <dd>
-    <!-- アドバイス -->
-     {{ advice }} 下のAmazonリンクからどうぞ．
-
-  <dt>おすすめ商品</dt>
-    <dd> <!-- amazonリンク --> 
+  <h2>あなたの強み</h2>
+<p>
+  {{ pros }}
+</p>
+  <h2>アドバイス</h2>
+<p>
+     {{ advice }} 
 <a href="https://www.amazon.co.jp/exec/obidos/ASIN/{{ amazon }}/bousai0bc-22">Amazonリンク</a>
-    </dd>
-  <dt>おすすめ動画</dt>
-    <dd>
+</p>
+  <h2>おすすめ動画</h2>
+<p>
 <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/{{ movie }}" title="YouTube video player" width="560"></iframe>
-  </dd>
-</dl>
+</p>
 
-<h2>シェア</h2>
-<dl>
+<h3 style="text-align:right;">シェア</h3>
+<dl style="text-align:right;">
   <dt>診断結果のシェア</dt>
   <dd>
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="{{ chartmessage }}" data-url="{{ charturl }}" data-via="plantarum" data-hashtags="防災情報博士" data-related="plantarum" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </dd>
 
-  <dt>診断のシェア:</dt>
+  <dt>診断のシェア</dt>
 <dd>
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="{{ diagnosemessage }}" data-url="{{ diagnoseurl}}" data-via="plantarum" data-hashtags="防災情報博士" data-related="plantarum" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </dd>
@@ -55,3 +61,7 @@
 </dl>
 
 <a href="{{ diagnoseurl }}">診断ページに戻る</a>
+
+<p align=right>
+<a href="https://mba.pu-hiroshima.ac.jp/ja/"><img src="https://mba.pu-hiroshima.ac.jp/imgs/cmn/hdr_logo.svg" width=267 height=150 alt="県立広島大学 経営管理研究科(HBMS)"></a>
+</p>

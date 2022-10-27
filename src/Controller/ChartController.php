@@ -47,9 +47,9 @@ class ChartController extends ControllerBase {
 		$fontsp = $this->fontsp = 20;
 		$this->c = [200, 200];
 
-		$this->gd = imagecreate($this->c[0]*2+$fontsp*2+200, $this->c[1]*2+$fontsp*2);
-		$bgcolor = imagecolorallocate($this->gd, 245, 222, 179);
-		$black = imagecolorallocate($this->gd, 0, 0, 0);
+		$this->gd = imagecreate($this->c[0]*2+$fontsp*2+200, $this->c[1]*1.8);
+		$bgcolor = imagecolorallocate($this->gd, 255, 255, 255);
+		$black = imagecolorallocate($this->gd, 48, 48, 48);
 		$ave = imagecolorallocate($this->gd, 77, 197, 58);
 		$you = imagecolorallocate($this->gd, 215, 40, 71);
 		$c_axis = $black;
@@ -83,10 +83,10 @@ class ChartController extends ControllerBase {
 		$this->draw_triangle($s, $you);
 
 		# 凡例
-		imageline($this->gd, 400, 220, 475, 220, $ave);
-		imageline($this->gd, 400, 250, 475, 250, $you);
-		$this->draw_title("平均", [500, 225], $ave);
-		$this->draw_title("あなたの結果", [500, 255], $you);
+		imageline($this->gd, 400, 100, 475, 100, $ave);
+		imageline($this->gd, 400, 130, 475, 130, $you);
+		$this->draw_title("平均", [500, 105], $ave);
+		$this->draw_title("あなたの結果", [500, 135], $you);
 
 		# 軸の見出し; 頂点とは微妙に座標を変える
 		$this->draw_title($subtitles[0], [$this->p1[0]-7, $this->p1[1]-3], $black);
